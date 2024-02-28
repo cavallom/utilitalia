@@ -24,7 +24,7 @@ itWorks = function() {
 
 }
 
-numeriInParole = function(numero) {
+numeroInParole = function(numero) {
 
     const start = Date.now();
 
@@ -149,14 +149,14 @@ numeriInParole = function(numero) {
             } else if (num_array_length === 3 && index === 0) {
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000000)[1] : numeriParole.find((element) => element[0] === 1000000)[2];
             } else if (num_array_length === 3 && index === 1) {
-                if (value === 1) a = a.slice(0, -2);
+                if (value === 1) a = a.slice(0, -2); //con mille un si omette
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000)[1] : numeriParole.find((element) => element[0] === 1000)[2];
             } else if (num_array_length === 4 && index === 0) {
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000000000)[1] : numeriParole.find((element) => element[0] === 1000000000)[2];
             } else if (num_array_length === 4 && index === 1) {
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000000)[1] : numeriParole.find((element) => element[0] === 1000000)[2];
             } else if (num_array_length === 4 && index === 2) {
-                if (value === 1) a = a.slice(0, -2);
+                if (value === 1) a = a.slice(0, -2); //con mille un si omette
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000)[1] : numeriParole.find((element) => element[0] === 1000)[2];
             } else if (num_array_length === 5 && index === 0) {
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000000000000)[1] : numeriParole.find((element) => element[0] === 1000000000000)[2];
@@ -165,7 +165,7 @@ numeriInParole = function(numero) {
             } else if (num_array_length === 5 && index === 2) {
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000000)[1] : numeriParole.find((element) => element[0] === 1000000)[2];
             } else if (num_array_length === 5 && index === 3) {
-                if (value === 1) a = a.slice(0, -2);
+                if (value === 1) a = a.slice(0, -2); //con mille un si omette
                 a += value == 1 ? numeriParole.find((element) => element[0] === 1000)[1] : numeriParole.find((element) => element[0] === 1000)[2];
             }
     
@@ -197,4 +197,4 @@ utilitalia_Error = function(routine = "", executiontime = "", message = "") {
 
 utilitalia_Error.prototype = Error.prototype;
 
-module.exports = { itWorks, numeriInParole };
+module.exports = { itWorks, numeroInParole };

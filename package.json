@@ -1,6 +1,6 @@
 {
   "name": "utilitalia",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Italian localized utilities library",
   "main": "index.js",
   "directories": {
