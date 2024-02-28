@@ -1,9 +1,5 @@
 const pjson = require('./package.json');
 
-function getNumberLength(num) {
-    return Math.ceil(Math.log10(num + 1));
-}
-
 itWorks = function() {
     
     const start = Date.now();
@@ -27,9 +23,10 @@ itWorks = function() {
     }
 
 }
+
 numeriInParole = function(numero) {
 
-    let numberLength = getNumberLength(numero);
+    let a = '';
 
     const numeriParole = 
         [
@@ -85,31 +82,56 @@ numeriInParole = function(numero) {
 
         ];
 
-        let lunghezzaNumero = numberLength;
+    let migliaianumero_str_array = numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").split(','); //.reverse();
+    
+    let migliaianumero_num_array = [];
 
+    migliaianumero_str_array.forEach(element => {
+        let zeroClean = element.at(0) === '0' ? Number(element.substring(1)) : Number(element);
+        migliaianumero_num_array.push(zeroClean);
+    });
+
+    const centinaiaInParole = numero => 
+    {// centinaia / decine / unita
         let result = '';
+        
+        let numeroLength = Math.ceil(Math.log10(numero + 1));
 
-        if(numero > 99 && numero < 1000) {
-            const quotientd = Math.floor(numero/100);
-            const remainderd = numero % 100;
-            const quotientu = Math.floor(remainderd/10)*10;
-            const remainderu = remainderd % 10;
-            result += numeriParole.find((element) => quotientd > 1 ? element[0] === quotientd : ['',''])[1]
+        if(numeroLength === 3) { //centinaia
+            const quotientc = Math.floor(numero/100);
+            const remainderc = numero % 100;
+            const quotientd = Math.floor(remainderc/10)*10;
+            const remainderd = remainderc % 10;
+            result += numeriParole.find((element) => quotientc > 1 ? element[0] === quotientc : ['',''])[1]
                 + numeriParole.find((element) => element[0] === 100)[1]
-                + numeriParole.find((element) => quotientu === 10 || remainderu === 1 || remainderu === 8 ? element[0] === remainderd : [0,''])[1]
-                + numeriParole.find((element) => quotientu !== 10 && remainderu !== 1 && remainderu !== 8 ? element[0] === quotientu : [0,''])[1]
-                + numeriParole.find((element) => quotientu !== 10 && remainderu !== 1 && remainderu !== 8 ? element[0] === remainderu : [0,''])[1]
-        } else if(numero > -1 && numero < 100) {
+                + numeriParole.find((element) => quotientd === 10 || remainderd === 1 || remainderd === 8 ? element[0] === remainderc : [0,''])[1]
+                + numeriParole.find((element) => quotientd !== 10 && remainderd !== 1 && remainderd !== 8 ? element[0] === quotientd : [0,''])[1]
+                + numeriParole.find((element) => quotientd !== 10 && remainderd !== 1 && remainderd !== 8 ? element[0] === remainderd : [0,''])[1]
+        } else if(numeroLength === 2) { // decine
             const quotientu = Math.floor(numero/10)*10;
             const remainderu = numero % 10;
             result += numeriParole.find((element) => quotientu === 10 || remainderu === 1 || remainderu === 8 ? element[0] === numero : [0,''])[1]
                 + numeriParole.find((element) => quotientu !== 10 && remainderu !== 1 && remainderu !== 8 ? element[0] === quotientu : [0,''])[1]
                 + numeriParole.find((element) => quotientu !== 10 && remainderu !== 1 && remainderu !== 8 ? element[0] === remainderu : [0,''])[1]
-
+        } else if(numeroLength === 1) { // unita
+            result += numeriParole.find((element) => element[0] === numero)[1];
         }
         return result;
 
+    };
+    
+    migliaianumero_num_array.forEach(element => {
+    
+        a += centinaiaInParole(element); 
+
+    });
+
+    console.log(migliaianumero_str_array);
+
+    return a;
+
 }
+
 utilitalia_Error = function(routine = "", executiontime = "", message = "") { 
     
     this.routine = routine;
