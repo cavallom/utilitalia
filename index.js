@@ -26,6 +26,21 @@ itWorks = function() {
 
 numeriInParole = function(numero) {
 
+    const start = Date.now();
+
+    let numeroLength = Math.ceil(Math.log10(numero + 1));
+
+    if (numeroLength > 15) {
+
+        const end = Date.now();
+
+        throw new utilitalia_Error(
+            'numeriInParole'
+            , `${(end - start)}ms.`
+            , 'Numbers longer than 15 digits are not managed!'
+        )
+    }
+    
     let a = '';
 
     const numeriParole = 
@@ -76,9 +91,9 @@ numeriInParole = function(numero) {
             , [98, 'novantotto']
             , [100, 'cento']
             , [1000, 'mille', 'mila']
-            , [1000000, 'milione']
-            , [1000000000, 'miliardo']
-            , [1000000000000, 'bilione']
+            , [1000000, 'milione', 'milioni']
+            , [1000000000, 'miliardo', 'miliardi']
+            , [1000000000000, 'bilione', 'bilioni']
 
         ];
 
@@ -92,7 +107,7 @@ numeriInParole = function(numero) {
     });
 
     const centinaiaInParole = numero => 
-    {// centinaia / decine / unita
+    {// centinaia / decine / unità
         let result = '';
         
         let numeroLength = Math.ceil(Math.log10(numero + 1));
@@ -113,18 +128,75 @@ numeriInParole = function(numero) {
             result += numeriParole.find((element) => quotientu === 10 || remainderu === 1 || remainderu === 8 ? element[0] === numero : [0,''])[1]
                 + numeriParole.find((element) => quotientu !== 10 && remainderu !== 1 && remainderu !== 8 ? element[0] === quotientu : [0,''])[1]
                 + numeriParole.find((element) => quotientu !== 10 && remainderu !== 1 && remainderu !== 8 ? element[0] === remainderu : [0,''])[1]
-        } else if(numeroLength === 1) { // unita
+        } else if(numeroLength === 1) { // unità
             result += numeriParole.find((element) => element[0] === numero)[1];
         }
+
         return result;
 
     };
     
-    migliaianumero_num_array.forEach(element => {
-    
-        a += centinaiaInParole(element); 
+    let num_array_length = migliaianumero_num_array.length;
+
+    migliaianumero_num_array.forEach(function callback(value, index) {
+
+        //console.log(`${index}: ${value}`);
+
+        a += centinaiaInParole(value);
+
+        if (num_array_length === 2 && index === 0) {
+            a += 'mila';
+        } else if (num_array_length === 3 && index === 0) {
+            a += 'milioni';
+        } else if (num_array_length === 3 && index === 1) {
+            a += 'mila';
+        } else if (num_array_length === 4 && index === 0) {
+            a += 'miliardi';
+        } else if (num_array_length === 4 && index === 1) {
+            a += 'milioni';
+        } else if (num_array_length === 4 && index === 2) {
+            a += 'mila';
+        } else if (num_array_length === 5 && index === 0) {
+            a += 'bilioni';
+        } else if (num_array_length === 5 && index === 1) {
+            a += 'miliardi';
+        } else if (num_array_length === 5 && index === 2) {
+            a += 'milioni';
+        } else if (num_array_length === 5 && index === 3) {
+            a += 'mila';
+        }
 
     });
+
+    // migliaianumero_num_array.forEach(element => {
+    
+    //     a += centinaiaInParole(element);
+
+    //     let elementIndex = migliaianumero_num_array.indexOf(element);
+
+    //     if (num_array_length === 2 && elementIndex === 0) {
+    //         a += 'mila';
+    //     } else if (num_array_length === 3 && elementIndex === 0) {
+    //         a += 'milioni';
+    //     } else if (num_array_length === 3 && elementIndex === 1) {
+    //         a += 'mila';
+    //     } else if (num_array_length === 4 && elementIndex === 0) {
+    //         a += 'miliardi';
+    //     } else if (num_array_length === 4 && elementIndex === 1) {
+    //         a += 'milioni';
+    //     } else if (num_array_length === 4 && elementIndex === 2) {
+    //         a += 'mila';
+    //     } else if (num_array_length === 5 && elementIndex === 0) {
+    //         a += 'bilioni';
+    //     } else if (num_array_length === 5 && elementIndex === 1) {
+    //         a += 'miliardi';
+    //     } else if (num_array_length === 5 && elementIndex === 2) {
+    //         a += 'milioni';
+    //     } else if (num_array_length === 5 && elementIndex === 3) {
+    //         a += 'mila';
+    //     }
+
+    // });
 
     console.log(migliaianumero_str_array);
 
